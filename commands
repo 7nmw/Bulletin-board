@@ -1,5 +1,0 @@
-e2.2a@yandex.ru
-asdasdqwr12
-
-
-           {% if user.username == responses.responses_comment.author_name.username %}
