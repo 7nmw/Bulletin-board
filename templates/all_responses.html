@@ -1,0 +1,51 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+News
+{% endblock title %}
+
+
+{% block content %}
+   <h1>Список откликов</h1>
+
+   <form action="" method="get">
+       {{ filterset.form.as_p }}
+       <input type="submit" value="Найти" />
+   </form>
+
+   <hr>
+   {% if responses %}
+
+       <table>
+           <tr>
+               <td>Автор объявления</td>
+               <td>Краткое содержание оъявления</td>
+               <td>Автор комментария</td>
+               <td>Тект отклика</td>
+               <td>Дата и Время</td>
+               <td>Статус</td>
+           </tr>
+           {% for responses in responses %}
+           {% if user.username == responses.responses_comment.author_name.username %}
+           <tr>
+               <td>{{ responses.responses_comment.author_name }}</td>
+               <td>{{ responses.responses_comment.content|truncatewords:10 }}</td>
+               <td>{{ responses.user_responses }}</td>
+               <td>{{ responses.text_responses }}</td>
+               <td>{{ responses.datetime_responses }}</td>
+               <td>{{ responses.accepted }}</td>
+               <td><button> <a href="{% url 'AcceptedResponses' responses.id %}"> Принять </a></button></td>
+               <td><button> <a href="{% url 'RefuseResponses' responses.id %}"> Отказать </a></button></td>
+               <td><button> <a href="{% url 'DeleteResponses' responses.id %}"> Удалить </a></button></td>
+           </tr>
+           {% endif %}
+
+           {% endfor %}
+
+       </table>
+   {% else %}
+       <h2>Откликов нет!</h2>
+   {% endif %}
+
+
+{% endblock content %}

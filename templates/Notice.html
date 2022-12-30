@@ -1,0 +1,37 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+News
+{% endblock title %}
+{% block content %}
+
+
+   <h1>Список объявлений</h1>
+   <hr>
+   {% if notice %}
+       <table>
+           <tr>
+               <td>Заголовок</td>
+               <td>Автор</td>
+               <td>Содержание</td>
+               <td>Категория</td>
+           </tr>
+
+           {% for notice in notice %}
+
+           <tr>
+               <td>{{ notice.header }}</td>
+               <td>{{ notice.author_name }}</td>
+               <td>{{ notice.content }}</td>
+               <td>{{ notice.category_notice }}</td>
+               <td><button> <a href="{% url 'notice_update' notice.id %}"> Редактировать </a></button></td>
+               <td><button> <a href="/createResponses/"> Оставить отклик </a></button></td>
+           </tr>
+           {% endfor %}
+       </table>
+   {% else %}
+       <h2>Новостей нет!</h2>
+   {% endif %}
+
+
+{% endblock content %}
